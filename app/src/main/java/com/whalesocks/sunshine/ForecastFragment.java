@@ -1,5 +1,6 @@
 package com.whalesocks.sunshine;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -23,11 +24,11 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class ForecastFragment extends Fragment {
 
     ArrayAdapter<String> mForecastAdapter;
 
-    public MainActivityFragment() {
+    public ForecastFragment() {
     }
 
     @Override
@@ -116,8 +117,12 @@ public class MainActivityFragment extends Fragment {
             }
         }
 
-
-
         return rootView;
+    }
+
+    public class FetchWeatherTask extends AsyncTask<URL, Integer, Long> {
+        protected Long doInBackground(URL... urls) {
+
+        }
     }
 }
