@@ -1,6 +1,5 @@
 package com.whalesocks.sunshine;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -99,7 +98,7 @@ public class ForecastFragment extends Fragment {
               String forecast = mForecastAdapter.getItem(position);
 
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra("item", position);
+                intent.putExtra(Intent.EXTRA_TEXT, forecast);
                 startActivity(intent);
 
                 Toast.makeText(
