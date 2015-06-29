@@ -3,16 +3,55 @@ package com.whalesocks.sunshine;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    private String LOG_TAG = MainActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.v(LOG_TAG, "onCreate Started");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.v(LOG_TAG, "onPause Started");
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.v(LOG_TAG, "onStart Started");
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.v(LOG_TAG, "onStop Started");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.v(LOG_TAG, "onDestroy Started");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.v(LOG_TAG, "onResume Started");
+
     }
 
     @Override
