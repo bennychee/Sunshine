@@ -15,7 +15,6 @@
  */
 package com.whalesocks.sunshine;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -107,7 +107,7 @@ public class ForecastFragment extends Fragment {
     }
 
     private void updateWeather() {
-        FetchWeatherTask weatherTask = new FetchWeatherTask();
+        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity(), mForecastAdapter);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_key_default));
@@ -122,13 +122,16 @@ public class ForecastFragment extends Fragment {
         updateWeather();
     }
 
+/*
     public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
         private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
-        /* The date/time conversion code is going to be moved outside the asynctask later,
+        */
+/* The date/time conversion code is going to be moved outside the asynctask later,
          * so for convenience we're breaking it out into its own method now.
-         */
+         *//*
+
 
         private String getReadableDateString(long time){
             // Because the API returns a unix timestamp (measured in seconds),
@@ -142,9 +145,11 @@ public class ForecastFragment extends Fragment {
             return ((metric * 9) / 5) + 32;
         }
 
-        /**
+        */
+/**
          * Prepare the weather high/lows for presentation.
-         */
+         *//*
+
         private String formatHighLows(double high, double low) {
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -166,13 +171,15 @@ public class ForecastFragment extends Fragment {
             return highLowStr;
         }
 
-        /**
+        */
+/**
          * Take the String representing the complete forecast in JSON Format and
          * pull out the data we need to construct the Strings needed for the wireframes.
          *
          * Fortunately parsing is easy:  constructor takes the JSON string and converts it
          * into an Object hierarchy for us.
-         */
+         *//*
+
         private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
                 throws JSONException {
 
@@ -349,4 +356,5 @@ public class ForecastFragment extends Fragment {
             mForecastAdapter.addAll(strings);
         }
     }
+*/
 }
