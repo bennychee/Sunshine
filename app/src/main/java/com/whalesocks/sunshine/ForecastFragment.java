@@ -1,34 +1,31 @@
 package com.whalesocks.sunshine;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.view.animation.Animation;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import com.whalesocks.sunshine.data.WeatherContract;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ForecastFragment extends Fragment {
+public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-//    private ArrayAdapter<String> mForecastAdapter;
+    //    private ArrayAdapter<String> mForecastAdapter;
     private ForecastAdapter mForecastAdapter;
+    private static final int FORECAST_LOADER = 0;
 
     public ForecastFragment() {
     }
@@ -37,6 +34,12 @@ public class ForecastFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        getLoaderManager().initLoader(FORECAST_LOADER, null, this);
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -63,46 +66,46 @@ public class ForecastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        String locationSetting = Utility.getPreferredLocation(getActivity());
+        mForecastAdapter = new ForecastAdapter(getActivity(), null, 0);
 
-//        mForecastAdapter = new ArrayAdapter<String>(
-//                getActivity(),
-//                R.layout.list_item_forecast,
-//                R.id.list_item_forecast_textview,
-//                new ArrayList<String>());
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+        ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
+        listView.setAdapter(mForecastAdapter);
+
+        return rootView;
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String locationSetting = Utility.getPreferredLocation(getActivity());
 
         // Sort order:  Ascending, by date.
         String sortOrder = WeatherContract.WeatherEntry.COLUMN_DATE + " ASC";
         Uri weatherForLocationUri = WeatherContract.WeatherEntry.buildWeatherLocationWithStartDate(
                 locationSetting, System.currentTimeMillis());
 
-        Cursor cur = getActivity().getContentResolver().query(weatherForLocationUri,
-                null, null, null, sortOrder);
+        return new CursorLoader(getActivity(),
+                weatherForLocationUri,
+                null,
+                null,
+                null,
+                sortOrder);
+    }
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mForecastAdapter.swapCursor(data);
+    }
 
-        mForecastAdapter = new ForecastAdapter(getActivity(), cur, 0);
-
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-        ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
-        listView.setAdapter(mForecastAdapter);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//              String forecast = mForecastAdapter.getItem(position);
-//
-//                Intent intent = new Intent(getActivity(), DetailActivity.class);
-//                intent.putExtra(Intent.EXTRA_TEXT, forecast);
-//                startActivity(intent);
-//
-//                Toast.makeText(
-//                      getActivity(),
-//                      forecast,
-//                      Toast.LENGTH_SHORT).show();
-//            }
-//        });
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mForecastAdapter.swapCursor(null);
+    }
 
 
-        return rootView;
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        return super.onCreateAnimation(transit, enter, nextAnim);
     }
 
     private void updateWeather() {

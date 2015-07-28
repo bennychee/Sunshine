@@ -42,7 +42,7 @@ public class TestFetchWeatherTask extends AndroidTestCase{
 
         FetchWeatherTask fwt = new FetchWeatherTask(getContext());
         long locationId = fwt.addLocation(ADD_LOCATION_SETTING, ADD_LOCATION_CITY,
-                ADD_LOCATION_LAT, ADD_LOCATION_LON); 
+                ADD_LOCATION_LAT, ADD_LOCATION_LON);
 
         // does addLocation return a valid record ID?
         assertFalse("Error: addLocation returned an invalid ID on insert",
