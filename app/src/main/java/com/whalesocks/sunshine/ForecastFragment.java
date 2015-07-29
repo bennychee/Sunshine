@@ -53,7 +53,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         int id = item.getItemId();
 
         switch(id) {
-            case R.id.action_refresh:
+            case R.id.action_refresh: 
                 updateWeather();
                 return true;
 
