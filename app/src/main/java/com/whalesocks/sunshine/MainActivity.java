@@ -32,33 +32,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        Log.v(LOG_TAG, "onPause Started");
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.v(LOG_TAG, "onStart Started");
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.v(LOG_TAG, "onStop Started");
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.v(LOG_TAG, "onDestroy Started");
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         Log.v(LOG_TAG, "onResume Started");
